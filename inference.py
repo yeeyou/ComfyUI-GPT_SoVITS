@@ -123,7 +123,7 @@ def get_first(text):
     return text
 
 def get_tts_wav(ref_wav_path, prompt_text, prompt_language, text, 
-                text_language,output_filepath, how_to_cut=i18n("不切"), top_k=20, 
+                text_language, how_to_cut=i18n("不切"), top_k=20, 
                 top_p=0.6, temperature=0.6, gpt_weight="",sovits_weight="",outfile="tts.wav",ref_free=False):
     vq_model, hps = change_sovits_weights(sovits_weight)
     hz, max_sec, t2s_model, config = change_gpt_weights(gpt_weight)
