@@ -99,7 +99,7 @@ class GPT_SOVITS_TTS:
         gpt_weight = os.path.join(GPT_weight_root, gpt_weight)
         sovits_weight = os.path.join(SoVITS_weight_root, sovits_weight)
         get_tts_wav(renfer_audio,prompt_text,prompt_language,
-            text,text_language,output_filepath,how_to_cut,top_k,top_p,temperature,
+            text,text_language,how_to_cut,top_k,top_p,temperature,
             gpt_weight,sovits_weight,outfile)
         
         return (outfile,)
