@@ -47,6 +47,10 @@ class GPT_SOVITS_TTS:
                      "text_language":(language_list,{
                          "default": i18n("中文")
                      }),
+                     "output_filepath": ("STRING",{
+                         "default": "gpt_sovits_tts.wav",
+                         "multiline": False
+                     }),
                      "gpt_weight":(gpt_files,),
                      "sovits_weight":(sovits_files,),
                      "how_to_cut":(how_to_cuts,{
@@ -82,7 +86,7 @@ class GPT_SOVITS_TTS:
     FUNCTION = "get_tts_wav"
 
     def get_tts_wav(self,renfer_audio,refer_srt,refer_language,
-            text,text_language,gpt_weight,sovits_weight,
+            text,text_language,output_filepath,gpt_weight,sovits_weight,
             how_to_cut,top_k,top_p,temperature):
         
         with open(refer_srt, 'r', encoding="utf-8") as file:
@@ -91,11 +95,11 @@ class GPT_SOVITS_TTS:
         dot_ = "。" if 'zh' in prompt_language else '.'
         prompt_text = f'{dot_}'.join([sub.content for sub in list(SrtPare(file_content))])
         print(f"prompt_text:{prompt_text}")
-        outfile = os.path.join(out_path, f"{ttime()}_gpt_sovits_tts.wav")
+        outfile = os.path.join(out_path, output_filepath)
         gpt_weight = os.path.join(GPT_weight_root, gpt_weight)
         sovits_weight = os.path.join(SoVITS_weight_root, sovits_weight)
         get_tts_wav(renfer_audio,prompt_text,prompt_language,
-            text,text_language,how_to_cut,top_k,top_p,temperature,
+            text,text_language,output_filepath,how_to_cut,top_k,top_p,temperature,
             gpt_weight,sovits_weight,outfile)
         
         return (outfile,)
